@@ -1,9 +1,11 @@
 import { createContext, useContext, useState } from "react";
 import { useDatabaseContext } from "./Databasecontext";
+
 const AuthContext = createContext({
   auth: {},
   login: () => {},
   errorMessage: "",
+  setAuth: () => {},
 });
 
 export const useAuthContext = () => {
@@ -27,11 +29,13 @@ export default function AuthContextProvider({ children }) {
     if (v === false) {
       console.log("Error al introducir los credenciales");
     }
+    return v;
   }
   const value = {
     auth,
     login,
     errorMessage,
+    setAuth,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

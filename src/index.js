@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -8,19 +8,20 @@ import "bootstrap/dist/js/bootstrap.js";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthContextProvider from "./Context/AuthContext";
 import DatabaseContextProvider from "./Context/Databasecontext";
+import CarritoContextProvider from "./Context/CarritoContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <DatabaseContextProvider>
-        <AuthContextProvider>
+  <BrowserRouter>
+    <DatabaseContextProvider>
+      <AuthContextProvider>
+        <CarritoContextProvider>
           <Routes>
             <Route path="/*" element={<App />} />
           </Routes>
-        </AuthContextProvider>
-      </DatabaseContextProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+        </CarritoContextProvider>
+      </AuthContextProvider>
+    </DatabaseContextProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

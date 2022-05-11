@@ -4,9 +4,10 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDatabaseContext } from "../Context/Databasecontext";
 
 import "./Css/Css.css";
+import Footer from "../components/Footer/Footer";
 export default function Registro() {
   const { login, errorMessage } = useAuthContext();
-  const { register } = useDatabaseContext();
+  const { register, errorR } = useDatabaseContext();
   const location = useLocation();
   const navigate = useNavigate();
   const userRef = useRef();
@@ -24,13 +25,14 @@ export default function Registro() {
   function handleSubmit(e) {
     e.preventDefault();
     register(user);
-    navigate(from, { replace: true });
+    navigate("/Login2");
   }
   return (
-    <div className="auth-wrapper">
+    <div className=" Login2 auth-wrapper">
       <div className="auth-inner">
         <form onSubmit={handleSubmit}>
           <h3>Sign Up</h3>
+          {errorR && <p className="text-danger">{errorR}</p>}
 
           <div className="form-group">
             <label>Name</label>

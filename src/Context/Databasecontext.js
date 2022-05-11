@@ -4,6 +4,7 @@ const DatabaseContext = createContext({
   usuarios: [],
   setUsuarios: () => {},
   register: () => {},
+  errorR: "",
 });
 
 export const useDatabaseContext = () => {
@@ -12,6 +13,7 @@ export const useDatabaseContext = () => {
 
 export default function DatabaseContextProvider({ children }) {
   const [usuarios, setUsuarios] = useState(null);
+  const [errorR, setErrorR] = useState("");
   useEffect(function () {
     function callUsuarios() {
       let http = new XMLHttpRequest();
@@ -32,6 +34,14 @@ export default function DatabaseContextProvider({ children }) {
     http.onreadystatechange = function () {
       if (this.readyState === 4 && this.status === 200) {
         console.log(this.responseText);
+        if (
+          this.responseText ===
+          `err:ER_DUP_ENTRY: Duplicate entry '${user.email}' for key 'correo_UNIQUE'`
+        ) {
+          setErrorR("Error, email duplicado");
+        } else {
+          setErrorR("");
+        }
       }
     };
     http.open("POST", "http://localhost:8080/insertusuarios", true);
@@ -43,6 +53,7 @@ export default function DatabaseContextProvider({ children }) {
     usuarios,
     setUsuarios,
     register,
+    errorR,
   };
   return (
     <DatabaseContext.Provider value={value}>

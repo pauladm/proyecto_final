@@ -1,14 +1,15 @@
-import Paginacion from "../components/paginacion/Paginacion";
 import Datos from "../components/Datos/Datos";
 import "./Css/Css.css";
+import { useLocation } from "react-router-dom";
+
 export default function Home() {
+  const x = useLocation();
+
   return (
     <div className="home">
-      <h1>
-        Bienvenido a ESS
-        <Datos />
-        <Paginacion />
-      </h1>
+      <h1 className="text-center">Bienvenido a ESS</h1>
+
+      <Datos />
     </div>
   );
 }

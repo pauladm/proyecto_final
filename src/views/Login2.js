@@ -18,12 +18,14 @@ export default function Login2() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    login(user);
+    let x = login(user);
     setUser({ email: "", password: "" });
-    navigate(from, { replace: true });
+    if (x) {
+      navigate("/home");
+    } else navigate("/Login2");
   }
   return (
-    <div className="auth-wrapper">
+    <div className=" Login2 auth-wrapper">
       <div className="auth-inner">
         <form onSubmit={handleSubmit}>
           <h3>Sign In</h3>
@@ -81,7 +83,7 @@ export default function Login2() {
             <Link to="/Registro">registrate</Link>
           </p>
           <p className="forgot-password text-right">
-            <Link to="/home"> Continuar sin registrarse</Link>
+            <Link to="/home"> </Link>
           </p>
         </form>
       </div>
